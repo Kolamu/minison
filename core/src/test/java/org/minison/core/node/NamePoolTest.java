@@ -8,8 +8,8 @@ public class NamePoolTest {
     @Test
     public void testToBytes() throws Exception {
         NamePool pool = new NamePool();
-        pool.addConstant("test");
-        pool.addConstant("test2");
+        pool.addName("test");
+        pool.addName("test2");
         byte[] bytes = pool.toBytes();
         NamePool pool2 = new NamePool();
         ByteBuffer buffer = ByteBuffer.allocate(bytes.length + 2);
