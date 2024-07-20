@@ -5,6 +5,7 @@ import sun.misc.Unsafe;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,7 +37,7 @@ public class ReflectionUtils {
     }
 
     private static Map<String, Field> cacheFields(Class clazz) {
-        Map<String, Field> map = new HashMap<String, Field>();
+        Map<String, Field> map = new LinkedHashMap<>();
         Arrays.stream(clazz.getDeclaredFields())
                 .forEach(f -> map.put(f.getName(), f));
         Class superClass = clazz.getSuperclass();

@@ -1,5 +1,7 @@
 package org.minison.core.node;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
 /**
@@ -16,7 +18,13 @@ public class NumberNode implements MinisonNode {
     }
 
     @Override
-    public Object getValue() {
+    public Object read(ByteBuffer input) {
         return null;
     }
+
+    @Override
+    public void write(OutputStream output, Object value) {
+
+    }
+
 }

@@ -1,5 +1,9 @@
 package org.minison.core.node;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
+
 /**
  * TODO
  *
@@ -8,5 +12,6 @@ package org.minison.core.node;
  */
 public interface MinisonNode {
     void setValue(Object value);
-    Object getValue();
+    Object read(ByteBuffer input);
+    void write(OutputStream output, Object value);
 }
