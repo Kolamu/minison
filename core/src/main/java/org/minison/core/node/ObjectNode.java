@@ -1,6 +1,7 @@
 package org.minison.core.node;
 
 import lombok.Data;
+import lombok.Getter;
 import org.minison.core.util.MinisonNodeUtils;
 import org.minison.core.util.ReflectionUtils;
 import org.minison.core.util.UnsafeUtils;
@@ -10,7 +11,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -20,14 +20,14 @@ import java.util.Objects;
  * @author: kolamu
  * @create: 2024/5/25 17:24
  */
-@Data
-public class ObjectNode implements MinisonNode {
+@Getter
+public class ObjectNode extends MinisonNode {
     private String name;
     private Map<String, MinisonNode> fields;
     private Map<String, Object> data;
 
-    @Override
-    public void setValue(Object inst) {
+    public ObjectNode(Object inst) {
+        super(inst);
         this.data = new LinkedHashMap<>();
         this.fields = new LinkedHashMap<>();
         if(inst instanceof Map) {
@@ -36,17 +36,6 @@ public class ObjectNode implements MinisonNode {
         else {
             buildObject(inst);
         }
-    }
-
-    @Override
-    public Object read(ByteBuffer input) {
-
-        return null;
-    }
-
-    @Override
-    public void write(OutputStream output, Object value) {
-
     }
 
     private void buildObject(Object inst) {

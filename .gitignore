@@ -23,6 +23,7 @@ target/
 
 ### NetBeans ###
 /nbproject/private/
+/nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
@@ -37,3 +38,4 @@ build/
 ### Mac OS ###
 .DS_Store
 /.idea/
+*.log

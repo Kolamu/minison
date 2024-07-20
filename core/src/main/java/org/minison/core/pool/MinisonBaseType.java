@@ -1,4 +1,4 @@
-package org.minison.core.node;
+package org.minison.core.pool;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +13,9 @@ import lombok.Getter;
 public enum MinisonBaseType {
     String(1, "字符串类型"),
     Number(2, "数字类型"),
-    Float(3, "浮点型"),
-    Array(4, "列表"),
-    Map(5, "复杂Map类型"),
-    Object(6, "对象类型");
+    Array(3, "列表"),
+    Map(4, "复杂Map类型"),
+    Object(5, "对象类型");
     private int code;
     private String desc;
 }

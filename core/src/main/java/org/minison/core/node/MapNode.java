@@ -15,14 +15,13 @@ import java.util.Objects;
  * @author: kolamu
  * @create: 2024/5/25 17:24
  */
-public class MapNode implements MinisonNode {
+public class MapNode extends MinisonNode<Map> {
     private Map<Class, MinisonNode> keyNode;
     private Map<Class, MinisonNode> valueNode;
     private Map inst;
 
-    @Override
-    public void setValue(Object value) {
-        inst = (Map) value;
+    public MapNode(Map inst) {
+        super(inst);
         keyNode = new LinkedHashMap<Class, MinisonNode>();
         valueNode = new HashMap<Class, MinisonNode>();
         for (Object key : inst.keySet()) {
@@ -33,15 +32,5 @@ public class MapNode implements MinisonNode {
             keyNode.computeIfAbsent(key.getClass(), k -> MinisonNodeUtils.getMinisonNode(key));
             valueNode.computeIfAbsent(val.getClass(), k -> MinisonNodeUtils.getMinisonNode(val));
         }
-    }
-
-    @Override
-    public Object read(ByteBuffer input) {
-        return null;
-    }
-
-    @Override
-    public void write(OutputStream output, Object value) {
-
     }
 }

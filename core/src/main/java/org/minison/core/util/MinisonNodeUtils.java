@@ -21,8 +21,13 @@ public class MinisonNodeUtils {
         }
         Class<?> clazz = inst.getClass();
         MinisonNode node = null;
-        if(clazz.isArray() || Collection.class.isAssignableFrom(clazz)) {
-            node = new ArrayNode();
+        if(clazz.isEnum()) {
+            node = new StringNode();
+        }
+        else if(clazz.isArray()) {
+            node = new ArrayNode((Object[]) inst);
+        } else if (Collection.class.isAssignableFrom(clazz)) {
+            node = new ArrayNode(((Collection) inst).toArray());
         } else if(Map.class.isAssignableFrom(clazz)) {
             node = newMapNode((Map)inst);
         } else if(isType(clazz, String_Type_List)) {
@@ -30,9 +35,8 @@ public class MinisonNodeUtils {
         } else if(isType(clazz, Number_Type_Lis)) {
             node = new NumberNode();
         } else {
-            node = new ObjectNode();
+            node = new ObjectNode(inst);
         }
-        node.setValue(Collection.class.isAssignableFrom(clazz) ? ((Collection)inst).toArray() : inst);
         return node;
     }
 
@@ -68,13 +72,13 @@ public class MinisonNodeUtils {
 
     private static MinisonNode newMapNode(Map inst) {
         if(inst.isEmpty()) {
-            return new MapNode();
+            return new MapNode(inst);
         }
         for(Object key : inst.keySet()) {
             if(!isType(key.getClass(), String_Type_List) && isType(key.getClass(), Number_Type_Lis)) {
-                return new MapNode();
+                return new MapNode(inst);
             }
         }
-        return new ObjectNode();
+        return new ObjectNode(inst);
     }
 }
