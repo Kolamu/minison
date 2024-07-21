@@ -28,7 +28,7 @@ public class TypePool {
         this.types = new ArrayList<>();
     }
 
-    public int addName(MinisonType name) {
+    public int addType(MinisonType name) {
         if(name == null) {
             return -1;
         }
