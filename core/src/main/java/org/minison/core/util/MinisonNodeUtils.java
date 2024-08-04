@@ -1,6 +1,8 @@
 package org.minison.core.util;
 
+import org.minison.core.MinisonNode;
 import org.minison.core.node.*;
+import org.minison.core.pool.*;
 
 import java.lang.reflect.Proxy;
 import java.sql.Date;
@@ -19,25 +21,32 @@ public class MinisonNodeUtils {
         if(inst == null || inst instanceof Proxy) {
             return null;
         }
+        NamePool namePool = new NamePool();
+        TypePool typePool = new TypePool();
+        MinisonBaseType baseType = getMinisonBaseType(inst);
+        MinisonType type = baseType.getProcessor().getType(inst, namePool, typePool);
+        typePool.setRootType(type);
+        return new MinisonNode(namePool, typePool);
+    }
+
+    public static MinisonBaseType getMinisonBaseType(Object inst) {
         Class<?> clazz = inst.getClass();
-        MinisonNode node = null;
         if(clazz.isEnum()) {
-            node = new StringNode();
+            return MinisonBaseType.String;
         }
         else if(clazz.isArray()) {
-            node = new ArrayNode((Object[]) inst);
+            return MinisonBaseType.Array;
         } else if (Collection.class.isAssignableFrom(clazz)) {
-            node = new ArrayNode(((Collection) inst).toArray());
+            return MinisonBaseType.Array;
         } else if(Map.class.isAssignableFrom(clazz)) {
-            node = newMapNode((Map)inst);
+            return getMapType((Map)inst);
         } else if(isType(clazz, String_Type_List)) {
-            node = new StringNode();
+            return MinisonBaseType.String;
         } else if(isType(clazz, Number_Type_Lis)) {
-            node = new NumberNode();
+            return MinisonBaseType.Number;
         } else {
-            node = new ObjectNode(inst);
+            return MinisonBaseType.Object;
         }
-        return node;
     }
 
     private static List<Class> String_Type_List = Arrays.asList(
@@ -70,15 +79,16 @@ public class MinisonNodeUtils {
         return types.stream().anyMatch(type -> type.isAssignableFrom(clazz));
     }
 
-    private static MinisonNode newMapNode(Map inst) {
+    private static MinisonBaseType getMapType(Map inst) {
         if(inst.isEmpty()) {
-            return new MapNode(inst);
+            return MinisonBaseType.Map;
         }
         for(Object key : inst.keySet()) {
-            if(!isType(key.getClass(), String_Type_List) && isType(key.getClass(), Number_Type_Lis)) {
-                return new MapNode(inst);
+            if(!isType(key.getClass(), String_Type_List) && !isType(key.getClass(), Number_Type_Lis)) {
+                return MinisonBaseType.Map;
             }
         }
-        return new ObjectNode(inst);
+        return MinisonBaseType.Object;
     }
+
 }

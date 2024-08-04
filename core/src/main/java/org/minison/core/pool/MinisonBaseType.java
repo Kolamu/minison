@@ -2,6 +2,7 @@ package org.minison.core.pool;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.minison.core.node.*;
 
 /**
  * 基础数据类型
@@ -11,11 +12,13 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum MinisonBaseType {
-    String(1, "字符串类型"),
-    Number(2, "数字类型"),
-    Array(3, "列表"),
-    Map(4, "复杂Map类型"),
-    Object(5, "对象类型");
+    String(1, "字符串类型", new StringNodeProcessor()),
+    Number(2, "数字类型", new NumberNodeProcessor()),
+    Array(3, "列表", new ArrayNodeProcessor()),
+    Map(4, "复杂Map类型", new MapNodeProcessor()),
+    Object(5, "对象类型", new ObjectNodeProcessor());
+
     private int code;
     private String desc;
+    private MinisonNodeProcessor processor;
 }

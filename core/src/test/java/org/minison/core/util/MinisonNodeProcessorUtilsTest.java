@@ -1,11 +1,12 @@
 package org.minison.core.util;
 
+import org.minison.core.MinisonNode;
 import org.minison.core.model.MiniItemModel;
 import org.minison.core.model.MiniModel;
-import org.minison.core.node.MinisonNode;
+import org.minison.core.node.MinisonNodeProcessor;
 import org.testng.annotations.Test;
 
-public class MinisonNodeUtilsTest {
+public class MinisonNodeProcessorUtilsTest {
     @Test
     public void testItem() throws Exception {
         MiniItemModel itemModel = MiniItemModel.builder()

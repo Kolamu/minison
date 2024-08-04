@@ -1,8 +1,5 @@
 package org.minison.core.pool;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.*;
 
 /**
@@ -26,67 +23,31 @@ public class TypePool {
 
     public TypePool() {
         this.types = new ArrayList<>();
+        types.add(null);
     }
 
-    public int addType(MinisonType name) {
-        if(name == null) {
+    public int addType(MinisonType type) {
+        if(type == null) {
             return -1;
         }
-        if(types.contains(name)) {
-            return types.indexOf(name);
+        int index = types.indexOf(type);
+        if(index >= 0) {
+            return index;
         }
-        this.types.add(name);
-        return types.size() - 1;
+        this.types.add(type);
+        type.setIndex(types.size() - 1);
+        return type.getIndex();
+    }
+
+    public void setRootType(MinisonType type) {
+        this.types.add(0, type);
     }
 
     public MinisonType get(int index) {
         return this.types.get(index);
     }
 
-    public int getIndex(String name) {
-        return types.indexOf(name);
-    }
-
-    public int from(ByteBuffer buf) {
-//        if(buf == null || buf.limit() == 0) {
-//            return 0;
-//        }
-//
-//        int length = buf.limit();
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        for (int i = 0; i < length; i++) {
-//            byte b = buf.get();
-//            if(b > 0) {
-//                out.write(b);
-//                continue;
-//            }
-//            out.write(b & 0x7F);
-//            addName(new String(out.toByteArray()));
-//            out.reset();
-//            if(i == length - 1) {
-//                return length;
-//            }
-//            byte next = buf.get(i+1);
-//            if(next <= 0) {
-//                return i + 1;
-//            }
-//        }
-//        return length;
-        return 0;
-    }
-
-    public byte[] toBytes() throws IOException {
-//        if(this.namePool == null || this.namePool.size() == 0) {
-//            return new byte[0];
-//        }
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        for(String constant : this.namePool) {
-//            byte[] bytes = constant.getBytes();
-//            byte last = bytes[bytes.length-1];
-//            bytes[bytes.length-1] = (byte) (last | 0x80);
-//            out.write(bytes);
-//        }
-//        return out.toByteArray();
-        return new byte[0];
+    public int getIndex(MinisonType type) {
+        return types.indexOf(type);
     }
 }

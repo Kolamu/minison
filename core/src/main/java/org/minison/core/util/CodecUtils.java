@@ -1,18 +1,30 @@
-package org.minison.core.codec;
+package org.minison.core.util;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Objects;
 
 /**
- * 数字类型的序列化反序列化算法
+ * 数据编码工具类
  *
  * @author: kolamu
- * @create: 2024/7/20 18:09
+ * @create: 2024/8/3 17:19
  */
-public class NumberCodec {
+public class CodecUtils {
+    public static void utf8(String value, OutputStream out) throws IOException {
+        byte[] bytes = value == null || value.length() == 0 ? new byte[0] : value.getBytes("UTF-8");
+        variant(bytes.length, out);
+        out.write(value.getBytes());
+    }
+
+    public static String utf8(InputStream in) throws IOException {
+        int len = (int)variant(in);
+        byte[] bytes = new byte[len];
+        in.read(bytes);
+        return new String(bytes, "UTF-8");
+    }
+
     public static void variant(long value, OutputStream os) throws IOException {
         if(Objects.isNull(os)) {
             return;
