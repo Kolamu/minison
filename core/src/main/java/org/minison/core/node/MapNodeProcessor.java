@@ -12,10 +12,6 @@ import java.util.Map;
  * @create: 2024/5/25 17:24
  */
 public class MapNodeProcessor extends MinisonNodeProcessor<Map> {
-    private Map<Class, MinisonNodeProcessor> keyNode;
-    private Map<Class, MinisonNodeProcessor> valueNode;
-    private Map inst;
-
     @Override
     public MinisonType getType(Map inst, NamePool names, TypePool types) {
         return null;

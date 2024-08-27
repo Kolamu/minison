@@ -40,7 +40,7 @@ public class TypePool {
     }
 
     public void setRootType(MinisonType type) {
-        this.types.add(0, type);
+        this.types.set(0, type);
     }
 
     public MinisonType get(int index) {

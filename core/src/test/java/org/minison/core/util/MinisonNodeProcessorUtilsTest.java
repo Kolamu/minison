@@ -25,4 +25,10 @@ public class MinisonNodeProcessorUtilsTest {
         MinisonNode node = MinisonNodeUtils.getMinisonNode(model);
         System.out.println(node);
     }
+
+    @Test
+    public void testString() throws Exception {
+        MinisonNode node = MinisonNodeUtils.getMinisonNode("test");
+        System.out.println(node);
+    }
 }

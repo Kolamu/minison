@@ -12,7 +12,7 @@ import org.minison.core.pool.TypePool;
  * @create: 2024/5/25 17:24
  */
 @Data
-public class ArrayNodeProcessor extends MinisonNodeProcessor<Object[]> {
+public class ArrayNodeProcessor extends MinisonNodeProcessor {
     @Override
     public MinisonType getType(Object[] inst, NamePool names, TypePool types) {
         return null;

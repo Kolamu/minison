@@ -8,7 +8,9 @@ import java.lang.reflect.Proxy;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -57,7 +59,9 @@ public class MinisonNodeUtils {
             String.class,
             Date.class,
             java.util.Date.class,
+            LocalDate.class,
             Time.class,
+            LocalTime.class,
             Calendar.class,
             LocalDateTime.class
     );
@@ -90,5 +94,4 @@ public class MinisonNodeUtils {
         }
         return MinisonBaseType.Object;
     }
-
 }

@@ -6,6 +6,7 @@ import org.minison.core.pool.NamePool;
 import org.minison.core.pool.TypePool;
 import org.minison.core.util.MinisonNodeUtils;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -14,8 +15,8 @@ import java.util.Map;
  * @author: kolamu
  * @create: 2024/4/21 12:25
  */
-public abstract class MinisonNodeProcessor<T> {
-    public abstract MinisonType getType(T inst, NamePool names, TypePool types);
+public abstract class MinisonNodeProcessor {
+    public abstract MinisonType getType(Object inst, NamePool names, TypePool types);
 
     protected int[] getItems(Map<String, Object> inst, NamePool names, TypePool types) {
         int[] items = new int[inst.size() * 3];
@@ -29,5 +30,32 @@ public abstract class MinisonNodeProcessor<T> {
             i++;
         }
         return items;
+    }
+
+    protected MinisonType[] getTypes(Object[] inst, NamePool names, TypePool types) {
+        if(inst == null || inst.length == 0) {
+            return new MinisonType[0];
+        }
+        boolean sameType = isSameType(inst);
+        if(sameType) {
+            return new MinisonType[] {
+                    MinisonNodeUtils.getType(inst[0])
+            };
+        }
+    }
+
+
+
+    protected boolean isSameType(Object[] inst) {
+        if(inst == null || inst.length == 0) {
+            return true;
+        }
+        Class clazz = inst[0].getClass();
+        for(Object item : inst) {
+            if(item.getClass() != clazz) {
+                return false;
+            }
+        }
+        return true;
     }
 }

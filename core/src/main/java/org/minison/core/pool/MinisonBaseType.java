@@ -12,13 +12,13 @@ import org.minison.core.node.*;
 @Getter
 @AllArgsConstructor
 public enum MinisonBaseType {
-    String(1, "字符串类型", new StringNodeProcessor()),
-    Number(2, "数字类型", new NumberNodeProcessor()),
-    Array(3, "列表", new ArrayNodeProcessor()),
-    Map(4, "复杂Map类型", new MapNodeProcessor()),
-    Object(5, "对象类型", new ObjectNodeProcessor());
+    String((byte)0x90, "字符串类型", new StringNodeProcessor()),
+    Number((byte)0xa0, "数字类型", new NumberNodeProcessor()),
+    Array((byte)0xb0, "列表", new ArrayNodeProcessor()),
+    Map((byte)0xc0, "复杂Map类型", new MapNodeProcessor()),
+    Object((byte)0xd0, "对象类型", new ObjectNodeProcessor());
 
-    private int code;
+    private byte code;
     private String desc;
     private MinisonNodeProcessor processor;
 }

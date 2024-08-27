@@ -3,6 +3,7 @@ package org.minison.core.pool;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 
@@ -12,7 +13,6 @@ import java.util.Arrays;
  * @create: 2024/7/20 21:58
  */
 @Data
-@Builder
 public class MinisonType {
     private int index;
     private String name;
@@ -20,6 +20,10 @@ public class MinisonType {
      * int[3] { nameIndex, typeCode, subType }
      */
     private int[] items;
+
+    public MinisonType(int index) {
+        this.index = index;
+    }
 
     public MinisonType(int[] items) {
         this(null, items);
@@ -37,7 +41,7 @@ public class MinisonType {
      */
     public int getName(int index) {
         if(index < 0 || index >= items.length / 3) {
-            throw new IndexOutOfBoundsException("index out of bounds");
+            throw new IndexOutOfBoundsException();
         }
         return items[index * 3];
     }
@@ -49,7 +53,7 @@ public class MinisonType {
      */
     public int getType(int index) {
         if(index < 0 || index >= items.length / 3) {
-            throw new IndexOutOfBoundsException("index out of bounds");
+            throw new IndexOutOfBoundsException();
         }
         return items[index * 3 + 1];
     }

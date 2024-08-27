@@ -16,8 +16,7 @@ public enum MinisonStringMode implements MinisonMode {
     Date(3, "日期"),
     Time(4, "时间"),
     DateTime(5, "日期和时间"),
-    Calendar(6, "枚举类型"),
-    LocalDateTime(7, "LocalDateTime");
+    Calendar(6, "枚举类型");
 
     private int code;
     private String desc;
